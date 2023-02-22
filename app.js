@@ -14,6 +14,9 @@ const path = require("path");
 
 
 
+
+
+
 const { userModel } = require("./model/users");
 const { requirementModelObj } = require("./model/registration");
 const { curriculumModel } = require("./model/curriculum");
@@ -39,6 +42,12 @@ const storage = multer.diskStorage({
 
 // Create upload instance
 const upload = multer({ storage: storage });
+
+
+
+
+
+
 
 // Connect Database
 connectDB();
