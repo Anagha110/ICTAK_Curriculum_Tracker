@@ -8,6 +8,20 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
+
+const fsd = require('fs-extra');
+
+
+
+
+
+
+
+
+
+
+
+
 const { userModel } = require("./model/users");
 const { requirementModelObj } = require("./model/registration");
 const { curriculumModel } = require("./model/curriculum");
@@ -23,7 +37,7 @@ app.use(express.static(path.join(__dirname,'/build')));
 // set up uploads folder
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "tmp/uploads/");
   },
   filename: function (req, file, cb) {
     const ext = file.mimetype.split("/")[1];
@@ -33,6 +47,13 @@ const storage = multer.diskStorage({
 
 // Create upload instance
 const upload = multer({ storage: storage });
+
+// Move all files from the temporary directory to the uploads directory
+fsd.moveSync('tmp/uploads', '/uploads', { overwrite: true });
+
+
+fsd.removeSync('tmp/uploads');
+
 
 // Connect Database
 connectDB();
